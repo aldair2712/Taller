@@ -12,8 +12,8 @@
  *   - Un Google Form con secciones (cliente, tipo de estudiante, pedido, pago, control).
  *   - Una hoja de cálculo de Google conectada: cada respuesta se llena sola en una fila.
  *     (Se descarga como Excel desde Archivo > Descargar > Microsoft Excel).
- *   - Si en tu Google Drive hay imágenes con "Trampil" en el nombre (logo y personaje),
- *     las pone al inicio del formulario.
+ *   - Si subes a tu Google Drive la imagen "Trampil encabezado.png" (logo + personaje),
+ *     la pone al inicio del formulario.
  */
 
 var NOMBRE_MARCA = 'Trampil';
@@ -196,12 +196,12 @@ function crearFormularioTrampil() {
   Logger.log('EXCEL / HOJA DE RESPUESTAS: ' + hoja.getUrl());
 }
 
-/** Busca en Drive imágenes con "Trampil" en el nombre y las pone al inicio. */
+/** Busca en Drive la imagen "Trampil encabezado" y la pone al inicio. */
 function agregarImagenesDeMarca_(form) {
   var archivos = DriveApp.searchFiles(
-    "title contains '" + NOMBRE_MARCA + "' and mimeType contains 'image/' and trashed = false");
+    "title contains '" + NOMBRE_MARCA + " encabezado' and mimeType contains 'image/' and trashed = false");
   var n = 0;
-  while (archivos.hasNext() && n < 2) {
+  while (archivos.hasNext() && n < 1) {
     var archivo = archivos.next();
     form.addImageItem()
       .setImage(archivo.getBlob())
@@ -210,7 +210,7 @@ function agregarImagenesDeMarca_(form) {
     n++;
   }
   if (n === 0) {
-    Logger.log('No encontré imágenes con "' + NOMBRE_MARCA + '" en tu Drive. ' +
-               'Sube el logo y el personaje a Drive y vuelve a ejecutar, o agrégalos a mano.');
+    Logger.log('No encontré "' + NOMBRE_MARCA + ' encabezado.png" en tu Drive. ' +
+               'Súbelo a Drive y vuelve a ejecutar, o agrégalo a mano.');
   }
 }
